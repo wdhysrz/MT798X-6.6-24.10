@@ -385,7 +385,11 @@ jobs:
       uses: RuijieNetworksCommunity/cache-wrt-toolchain@main
       with:
         mixkey: ${{ hashFiles('.github/workflows/cache-control') }}
-
+        
+    - name: Clone HomeProxy
+      run: |
+        mkdir -p package/homeproxy
+        git clone --depth 1 https://github.com/XiaoHaiSly/luci-app-homeproxy package/homeproxy
     - name: Update Feeds
       id: update-feeds
       run: ./scripts/feeds update -a
