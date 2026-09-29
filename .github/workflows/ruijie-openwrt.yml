@@ -159,6 +159,11 @@ jobs:
       id: update-feeds
       run: ./scripts/feeds update -a
 
+    - name: Replace Golang Feed
+      run: |
+        rm -rf feeds/packages/lang/golang
+        git clone --depth 1 https://github.com/kenzok8/golang -b 1.25 feeds/packages/lang/golang
+
     - name: Install Feeds
       id: install-feeds
       run: ./scripts/feeds install -a
@@ -189,7 +194,7 @@ jobs:
 
   mt7981-lite:
     name: MT7981 Lite Build
-    if: false  # 👈 加上这行，让这个任务直接跳过
+    if: false
     runs-on: ubuntu-22.04
     needs: [cache-toolchain]
     steps:
@@ -269,6 +274,11 @@ jobs:
     - name: Update Feeds
       id: update-feeds
       run: ./scripts/feeds update -a
+
+    - name: Replace Golang Feed
+      run: |
+        rm -rf feeds/packages/lang/golang
+        git clone --depth 1 https://github.com/kenzok8/golang -b 1.25 feeds/packages/lang/golang
 
     - name: Install Feeds
       id: install-feeds
@@ -330,23 +340,7 @@ jobs:
           subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev zstd
         sudo apt-get clean
         sudo timedatectl set-timezone "$TZ"
-        
-    
-    - name: Replace golang feed
-      run: |
-        rm -rf feeds/packages/lang/golang
-        git clone --depth 1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 
-    - name: Setup Go
-      uses: actions/setup-go@v6
-      with:
-        go-version: '1.26.4' # 或更高版本，确保满足sing-box要求
-      
-    - name: Set GOTOOLCHAIN environment
-      run: |
-        echo "GOTOOLCHAIN=auto" >> $GITHUB_ENV
-        echo "FORCE_UNSAFE_CONFIGURE=1" >> $GITHUB_ENV
-        
     - name: Optimize Disk
       uses: "hugoalh/disk-space-optimizer-ghaction@v0.8.1"
       with:
@@ -407,9 +401,15 @@ jobs:
       run: |
         mkdir -p package/homeproxy
         git clone --depth 1 https://github.com/XiaoHaiSly/luci-app-homeproxy package/homeproxy
+
     - name: Update Feeds
       id: update-feeds
       run: ./scripts/feeds update -a
+
+    - name: Replace Golang Feed
+      run: |
+        rm -rf feeds/packages/lang/golang
+        git clone --depth 1 https://github.com/kenzok8/golang -b 1.25 feeds/packages/lang/golang
 
     - name: Install Feeds
       id: install-feeds
@@ -601,6 +601,11 @@ jobs:
       id: update-feeds
       run: ./scripts/feeds update -a
 
+    - name: Replace Golang Feed
+      run: |
+        rm -rf feeds/packages/lang/golang
+        git clone --depth 1 https://github.com/kenzok8/golang -b 1.25 feeds/packages/lang/golang
+
     - name: Install Feeds
       id: install-feeds
       run: ./scripts/feeds install -a
@@ -723,6 +728,11 @@ jobs:
     - name: Update Feeds
       id: update-feeds
       run: ./scripts/feeds update -a
+
+    - name: Replace Golang Feed
+      run: |
+        rm -rf feeds/packages/lang/golang
+        git clone --depth 1 https://github.com/kenzok8/golang -b 1.25 feeds/packages/lang/golang
 
     - name: Install Feeds
       id: install-feeds
