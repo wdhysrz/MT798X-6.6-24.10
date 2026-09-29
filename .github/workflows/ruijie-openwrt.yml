@@ -189,6 +189,7 @@ jobs:
 
   mt7981-lite:
     name: MT7981 Lite Build
+    if: false  # 👈 加上这行，让这个任务直接跳过
     runs-on: ubuntu-22.04
     needs: [cache-toolchain]
     steps:
@@ -329,6 +330,12 @@ jobs:
           subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev zstd
         sudo apt-get clean
         sudo timedatectl set-timezone "$TZ"
+        
+    
+    - name: Replace golang feed
+      run: |
+      rm -rf feeds/packages/lang/golang
+      git clone --depth 1 https://github.com/kenzok8/golang.git feeds/packages/lang/golang
 
     - name: Setup Go
       uses: actions/setup-go@v6
@@ -444,21 +451,13 @@ jobs:
   lite-release:
     name: Publish Lite Release
     runs-on: ubuntu-22.04
-    needs: [mt7981-lite, mt7986-lite]
+    needs: [mt7986-lite]
     steps:
     - name: Checkout Repository
       id: checkout
       uses: actions/checkout@main
       with:
         fetch-depth: 2
-
-    - name: Download MT7981 Lite Artifacts
-      id: download-mt7981
-      if: (!cancelled())
-      uses: actions/download-artifact@main
-      with:
-        name: mt7981-lite-bin
-        path: artifacts/mt7981
 
     - name: Download MT7986 Lite Artifacts
       id: download-mt7986
@@ -474,17 +473,12 @@ jobs:
       run: |
         mkdir -p release
 
-        rm -rf artifacts/mt7981/packages
         rm -rf artifacts/mt7986/packages
 
-        find artifacts/mt7981/targets/mediatek/filogic/ -type f ! -name "*.bin" -delete
-        find artifacts/mt7981/targets/mediatek/filogic/ -type f -name "*-bl2.bin" -delete
-        find artifacts/mt7981/targets/mediatek/filogic/ -mindepth 1 -type d -exec rm -rf {} +
         find artifacts/mt7986/targets/mediatek/filogic/ -type f ! -name "*.bin" -delete
         find artifacts/mt7986/targets/mediatek/filogic/ -type f -name "*-bl2.bin" -delete
         find artifacts/mt7986/targets/mediatek/filogic/ -mindepth 1 -type d -exec rm -rf {} +
 
-        cp -r artifacts/mt7981/targets/mediatek/filogic/*.bin release/
         cp -r artifacts/mt7986/targets/mediatek/filogic/*.bin release/
 
         cd release
