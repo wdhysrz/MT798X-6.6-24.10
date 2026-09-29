@@ -162,7 +162,7 @@ jobs:
     - name: Replace Golang Feed
       run: |
         rm -rf feeds/packages/lang/golang
-        git clone --depth 1 https://github.com/kenzok8/golang -b 1.25 feeds/packages/lang/golang
+        git clone --depth 1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 
     - name: Install Feeds
       id: install-feeds
@@ -278,7 +278,7 @@ jobs:
     - name: Replace Golang Feed
       run: |
         rm -rf feeds/packages/lang/golang
-        git clone --depth 1 https://github.com/kenzok8/golang -b 1.25 feeds/packages/lang/golang
+        git clone --depth 1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 
     - name: Install Feeds
       id: install-feeds
@@ -409,8 +409,7 @@ jobs:
     - name: Replace Golang Feed
       run: |
         rm -rf feeds/packages/lang/golang
-        git clone --depth 1 https://github.com/kenzok8/golang -b 1.25 feeds/packages/lang/golang
-
+        git clone --depth 1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
     - name: Install Feeds
       id: install-feeds
       run: ./scripts/feeds install -a
@@ -611,8 +610,7 @@ jobs:
     - name: Replace Golang Feed
       run: |
         rm -rf feeds/packages/lang/golang
-        git clone --depth 1 https://github.com/kenzok8/golang -b 1.25 feeds/packages/lang/golang
-
+        git clone --depth 1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
     - name: Install Feeds
       id: install-feeds
       run: ./scripts/feeds install -a
@@ -739,7 +737,7 @@ jobs:
     - name: Replace Golang Feed
       run: |
         rm -rf feeds/packages/lang/golang
-        git clone --depth 1 https://github.com/kenzok8/golang -b 1.25 feeds/packages/lang/golang
+        git clone --depth 1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 
     - name: Install Feeds
       id: install-feeds
