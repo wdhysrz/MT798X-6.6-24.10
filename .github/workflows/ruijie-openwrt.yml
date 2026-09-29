@@ -335,9 +335,7 @@ jobs:
     - name: Replace golang feed
       run: |
       rm -rf feeds/packages/lang/golang
-    git clone --depth 1
-      https://github.com/kenzok8/golang.git feeds/packages/lang/golang
-      
+      git clone --depth 1 https://github.com/kenzok8/golang.git feeds/packages/lang/golang
 
     - name: Setup Go
       uses: actions/setup-go@v6
