@@ -431,12 +431,19 @@ jobs:
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+        
+    - name: Setup Swap
+      run: |
+        sudo fallocate -l 4G /swapfile
+        sudo chmod 600 /swapfile
+        sudo mkswap /swapfile
+        sudo swapon /swapfile
 
     - name: Compile Firmware
       id: compile
       run: |
         echo -e "$(nproc) thread compile"
-        make -j$(($(nproc) * 3 / 2)) || make -j1 || make -j1 V=s
+        make -j$(($(nproc) * 3 / 2)) || make -j1 V=s
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: Check Disk Space
